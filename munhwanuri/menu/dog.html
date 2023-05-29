@@ -43,21 +43,20 @@
             </div>
             <div class="container2_2">
                 <div id="map" style="width:500px;height:400px;"></div>
-	            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb9d7b808064ea41f46140bbc2bb4855"></script>
-	            <script>
-	            	var container = document.getElementById('map');
-	            	var options = {
-	            		center: new kakao.maps.LatLng(33.450701, 126.570667),
-	            		level: 3
-	            	};
-                
-	            	var map = new kakao.maps.Map(container, options);
-	            </script>
-                <p> git test</p>
+	            
             </div>   
         </div>
         
     </section>
-
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bb9d7b808064ea41f46140bbc2bb4855"></script>
+    <script>
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+    
+        var map = new kakao.maps.Map(container, options);
+    </script>
 </body>
 </html>

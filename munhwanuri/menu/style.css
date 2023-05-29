@@ -42,9 +42,15 @@ body{
     background-color: burlywood;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content:space-evenly;
     
+}
+.map{
+    margin:auto 0;
+}
+.list{
+    margin:auto 0;
 }
 
 .chartflex{
