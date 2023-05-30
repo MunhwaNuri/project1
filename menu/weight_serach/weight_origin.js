@@ -1,4 +1,4 @@
-axios({
+/*axios({
     method:'get',
     url:'http://api.kcisa.kr/openapi/service/rest/convergence2019/getConver09?serviceKey=41d6be0d-85f2-4ffb-9d3b-347af3dcb546&where=경기도'
 }).then((response)=>{
@@ -22,7 +22,7 @@ function createList(data){
         centertitle.appendChild(centermedium);
     }
     document.getElementById("desc").appendChild(mainUL);
-}
+}*/
 //운동 도시 보이기
 var weight_btn = document.getElementById("weight_btn");
     weight_btn.onmouseenter = function (e) {
