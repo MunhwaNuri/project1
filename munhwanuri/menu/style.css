@@ -1,0 +1,97 @@
+*{
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+body{
+    margin: 0 auto;
+    background-color:aliceblue;
+}
+
+.mainframe{
+    background-color: burlywood;
+    padding: 5px 0;
+    width:100%;
+    height: 50px;
+}
+.logo{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container1{
+    display: flex;
+    justify-content: space-between;
+    min-height: 800px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.sidebar{
+    background-color: #F8EBB5;
+    flex-grow: 3;
+    max-width: 300px;
+    margin-top:20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    max-height: 800px;
+
+}
+.container2_2{
+    flex-grow:5;
+    margin-top:20px;
+    max-width: 900px;
+    background-color: burlywood;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    
+}
+.map{
+    margin:auto 0;
+}
+.list{
+    margin:auto 0;
+}
+
+.chartflex{
+    text-align: center;
+    height: 200px;
+    display: flex;
+    justify-content:space-evenly;
+}
+.chartsize{
+    width: 200px;
+    height:200px;
+}
+h3{
+    text-align: center;
+}
+.side_list ul{
+    
+    padding-left: 0px;
+    list-style: none;
+    font-weight: 700;
+}
+.side_list ul li{
+    text-align: center;
+    
+}
+.side_list ul li a{
+    text-decoration: none;
+    color:black;
+    display: block;
+    padding: 13px 30px;
+    border-bottom: 1px solid #D1AF41;
+    font-size: 16px;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.side_list ul li a:hover,
+.side_list ul li a.active{
+    color: #0c7db1;
+    background:white;
+    border-right: 2px solid rgb(5, 68, 104);
+    border-left: 2px solid rgb(5, 68, 104);
+}
