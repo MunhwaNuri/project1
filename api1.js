@@ -6,8 +6,6 @@ var cityName = document.getElementById("city-name");
 var temp = document.getElementById("temp");
 var weatherIcon = document.getElementById("weather-icon");
 var des = document.getElementById("des");
-var feel=document.getElementById("feel");
-var humi=document.getElementById("humi");
 
 navigator.geolocation.getCurrentPosition(function(position) {
   var lat = position.coords.latitude;
@@ -23,8 +21,6 @@ navigator.geolocation.getCurrentPosition(function(position) {
       temp.innerHTML = Math.round(data.main.temp);
       weatherIcon.src = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
       des.innerHTML = data.weather[0].description;
-      feel.innerHTML=Math.round(data.main.feels_like);
-      humi.innerHTML=data.main.humidity;
     })
     .catch(error => console.log(error));
 });
