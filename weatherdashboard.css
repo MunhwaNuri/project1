@@ -62,9 +62,10 @@
   .temperature_2 .humi {
     font-size: 15px;
     font-weight: bold;
-    margin-left: 5px;
+    margin-left: 15px;
   }
   .temperature_2 .feel {
     font-size: 15px;
     font-weight: bold;
+    margin-right:15px;
   }

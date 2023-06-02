@@ -1,4 +1,10 @@
-console.log('hello');
+var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+
+var map = new kakao.maps.Map(container, options);
 
 var link="https://apis.data.go.kr/B551011/KorService1/searchKeyword1";
 var serviceKey="nfGyrhix1PGJ1x6F%2BZ2%2Frqm0BLUzXIXxcN1sCy2dmW0SfkEgRbq3y1yqJYChKcvhuC6Yi9yDLlZuXzrbc8OkqA%3D%3D";

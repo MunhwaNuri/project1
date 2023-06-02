@@ -4,6 +4,7 @@ main화면 관련 js
 현재 날씨 현황에 대한 대시보드
 */
 var endpoint = "https://api.openweathermap.org/data/2.5/weather";
+var link2="http://api.openweathermap.org/data/2.5/air_pollution?lat=50&lon=50&appid=0a49043ba8f80d748644f6a519298486";
 var apiKey = "0a49043ba8f80d748644f6a519298486";
 
 var cityName = document.getElementById("city-name");
@@ -14,6 +15,12 @@ var feel=document.getElementById("feel");
 var humi=document.getElementById("humi");
 var cityname="seoul";
 
+axios({                      // 대기오염 정보에 대한 api 가져오기 
+  method:'get',              // 현재 날씨 api와는 다르게 좌표로만 지역정보를 가져올수 있다.
+  url:link2,
+}).then((response)=>{
+  console.log(response);
+});
 
 
 var url = endpoint + "?q="+cityname + "&units=metric" + "&appid=" + apiKey;
@@ -57,4 +64,24 @@ function wDescEngToKor(w_id) {
     }
   }
   return "none";
+}
+
+function printname(){
+  var x=document.getElementById("myText").value;
+  cityname=x;
+  console.log(cityName);
+  url = endpoint + "?q="+cityname + "&units=metric" + "&appid=" + apiKey;
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    console.log(url);
+    console.log(data);
+    cityName.innerHTML = data.name;
+    temp.innerHTML = Math.round(data.main.temp);
+    weatherIcon.src = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+    des.innerHTML = wDescEngToKor(data.weather[0].id);
+    feel.innerHTML=Math.round(data.main.feels_like);
+    humi.innerHTML=data.main.humidity;
+  })
+  .catch(error => console.log(error));
 }
