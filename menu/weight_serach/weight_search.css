@@ -42,15 +42,9 @@ body{
     background-color: burlywood;
     border-radius: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content:space-evenly;
     
-}
-.map{
-    margin:auto 0;
-}
-.list{
-    margin:auto 0;
 }
 
 .chartflex{
@@ -95,3 +89,4 @@ h3{
     border-right: 2px solid rgb(5, 68, 104);
     border-left: 2px solid rgb(5, 68, 104);
 }
+
