@@ -1,0 +1,37 @@
+.maps{
+    margin:0 auto;
+}
+
+.descs{
+    margin:0 auto;
+}
+
+
+
+
+.ulstyle{
+   width:600px;
+   position: relative;
+   box-sizing: border-box;
+}
+
+.ulstyle .listyle{
+    display: flex;
+    background-color: #D4987D;
+    padding: 10px 20px;
+    margin: 5px 0;
+    font-size: 15px;
+    /*transition: .7s;   //표출되는 효과 (사용여부 결정중)*/
+}
+
+.ulstyle .listyle .spanstyle1{
+    width:250px;
+}
+.ulstyle .listyle .spanstyle2{
+    width: 350px;
+    text-align: center;
+}
+
+.ulstyle .listyle:hover{
+    transform: scale(1.05);
+}

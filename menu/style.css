@@ -27,7 +27,7 @@ body{
 }
 .sidebar{
     background-color: #F8EBB5;
-    flex-grow: 3;
+    width: 300px;
     max-width: 300px;
     margin-top:20px;
     margin-right: 20px;
@@ -36,7 +36,7 @@ body{
 
 }
 .container2_2{
-    flex-grow:5;
+    width: 800px;
     margin-top:20px;
     max-width: 900px;
     background-color: burlywood;
@@ -47,32 +47,23 @@ body{
     
 }
 
-.chartflex{
-    text-align: center;
-    height: 200px;
-    display: flex;
-    justify-content:space-evenly;
-}
-.chartsize{
-    width: 200px;
-    height:200px;
-}
 h3{
     text-align: center;
 }
 .side_list ul{
-    
     padding-left: 0px;
     list-style: none;
     font-weight: 700;
 }
 .side_list ul li{
     text-align: center;
-    
 }
+
+/*display: block이 옆 container2_2의 크기 변동에 따라 계속 움직이게 되므로 width:240px를 설정하여 일부 고정을 시켜놓았음*/
 .side_list ul li a{
     text-decoration: none;
     color:black;
+    width: 240px;
     display: block;
     padding: 13px 30px;
     border-bottom: 1px solid #D1AF41;
