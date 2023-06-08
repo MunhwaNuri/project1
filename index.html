@@ -14,15 +14,48 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
 </head>
 <body>
-    <header>
+  <!--
+ <header>
         <div class="mainframe">
             <div class="logo">
                 <img src="munhwa_logo.png" width="170" height="50">
             </div>
         </div>
     </header>
+  -->
+   
+  <div class="head">
+    <h1>문화누리</h1>
+  </div>
+
+  <div class="nav">
+    <ul class = "main-menu">
+        <li><a href="./index.html">HOME</a></li>
+        <li><a href="./menu/weight_serach/weight_origin.html">운동</a>
+            <ul class="sub-menu">
+                <li>경기도</li>
+                <li>서울특별시</li>
+                <li>충청도</li>
+                <li>경상도</li>
+                <li>전라도</li>
+            </ul>
+        </li>
+        <li><a href="./menu/trip.html">여행</a>
+            <ul class="sub-menu">
+                <li><a href="./menu/trip.html">여행지 정보검색</a></li>
+                <li>커플</li>
+                <li>가족</li>
+                <li>뚜벅이</li>
+            </ul>
+        </li>
+        
+        <li><a href="./menu/library.html">
+          도서관</a></li>
+    </ul>
+</div>
     <section>
         <div class="container1">
+          <!--
             <div class="sidebar">
                 <div class="side_list">
                     <ul>
@@ -65,8 +98,9 @@
                     </ul>
                 </div>
             </div>
+            -->
             <div class="container2_2">
-                <div>
+                <div class="search">
                   <input id="myText" />
                   <button onclick="printname()">검색</button>
                 </div>

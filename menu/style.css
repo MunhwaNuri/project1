@@ -1,11 +1,25 @@
 *{
     font-family: 'Nanum Gothic Coding', monospace;
+    padding: 0px;
+    margin: 0px;
 }
 
 body{
     margin: 0 auto;
-    background-color:aliceblue;
+    background-color:#F2E8DF;
 }
+
+/* 2차 디자인 영역 css*/
+.head{
+    background: #F2E8DF;
+    color: #F28585;
+    padding: 10px 70px;
+    font-size: 30px;
+    border-top: 10px solid #F2C6C2;
+    font-family: sans-serif;
+    border-bottom: 10px solid #F2C6C2;
+}
+/*============================================*/
 
 .mainframe{
     background-color: burlywood;
@@ -20,13 +34,13 @@ body{
 
 .container1{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     min-height: 800px;
-    max-width: 1200px;
+    width: 1600px;
     margin: 0 auto;
 }
 .sidebar{
-    background-color: #F8EBB5;
+    background-color: #F2C6C2;
     width: 300px;
     max-width: 300px;
     margin-top:20px;
@@ -36,13 +50,11 @@ body{
 
 }
 .container2_2{
-    width: 800px;
+    width: 1200px;
     margin-top:20px;
-    max-width: 900px;
-    background-color: burlywood;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content:space-evenly;
     
 }
@@ -66,7 +78,7 @@ h3{
     width: 240px;
     display: block;
     padding: 13px 30px;
-    border-bottom: 1px solid #D1AF41;
+    border-bottom: 1px solid #8a7371ab;
     font-size: 16px;
     position: relative;
     padding-top: 20px;
