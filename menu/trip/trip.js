@@ -25,7 +25,7 @@ axios({
     let data=response.data.response.body.items.item;
 
     createList(data);
-    // x와 y 좌표 json을 소수점 자리수를 맞추고 형변환을 해주는 로직
+    // x와 y 좌표 json을 소수점 자리수를 맞추고 형변환을 해주는 로직 (문서 기준 소수점 6자리라 반올림을 진행하였음, json은 7자리)
     for(let i=0; i<10; i++){
         addrx.push(parseFloat(data[i].mapx));  
         addry.push(parseFloat(data[i].mapy));
@@ -35,8 +35,33 @@ axios({
         addry[i]=parseFloat(addry[i]);
     }
 
-    var moveLation=new kakao.maps.LatLng(addry[1],addrx[1]);  //카카오맵 위치 갱신
+    var moveLation=new kakao.maps.LatLng(addry[0],addrx[0]);  //카카오맵 위치 갱신
     map.setCenter(moveLation);
+
+    //마커 생성 관련 변수들 (좌표 생성)
+    var markerPosition  = new kakao.maps.LatLng(addry[0],addrx[0]);
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    marker.setMap(map);
+
+    //마커위에 표시할 element를 생성하는 변수
+    var iwContent = '<div>'+data[0].title+'</div>';
+    
+    //마우스오버 이벤트 발생시 태그 생성
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent
+    });
+    
+    //마우스 오버: 마우스를 갖다대면 마크위 이벤트 생성
+    kakao.maps.event.addListener(marker, 'mouseover', function() {
+          infowindow.open(map, marker);
+    });
+
+    //마우스 아웃: 마우스를 떼면 마크위 이벤트 소멸
+    kakao.maps.event.addListener(marker, 'mouseout', function() {
+        infowindow.close();
+    });
 });
 
 
@@ -66,12 +91,16 @@ function printname(){
             addry[i]=parseFloat(addry[i]);
         }
         console.log('addrx', addrx);
-        var moveLation=new kakao.maps.LatLng(addry[1],addrx[1]);  //카카오맵 위치 갱신
+        var moveLation=new kakao.maps.LatLng(addry[0],addrx[0]);  //카카오맵 위치 갱신
         map.setCenter(moveLation);
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+        marker.setMap(map);
     });
   }
 
-//api의 json data를 html에 적용하기 위한 분류 작업
+//api의 json data를 html에 적용하기 위한 분류 작업(사이트 로드 초기)
 function createList(data){
     const mainUL=document.createElement('ul');
     mainUL.className='ulstyle';
@@ -97,6 +126,7 @@ function createList(data){
             let value=mainli.value;
             displayView(data,value);
             console.log('mainli',value);
+            
         };
     }
     document.getElementById("desc").appendChild(mainUL);
@@ -106,7 +136,8 @@ function createList(data){
 function displayView(data, value){
    const photo=document.getElementById("photo1");
    photo.src=data[value].firstimage;
-  
+   var moveLation=new kakao.maps.LatLng(data[value].mapy,data[value].mapx);  //카카오맵 위치 갱신
+   map.setCenter(moveLation);
 }
 
 //갱신된 api를 바탕으로 createElement에 적용되어있던 태그와 내용을 갱신(replaceChild)하는 함수
