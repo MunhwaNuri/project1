@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +10,11 @@
     <link href="weight_search.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&family=Jua&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&family=Jua&family=Nanum+Gothic+Coding&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <!--
     <header>
@@ -33,12 +37,156 @@
                             <a href="../index.html">메인 날씨 페이지</a>
                         </li>
                         <li>
-                            <a id = "weight_btn" href ="javascript:history.back()">어디서 운동할까</a>
-                            <ul>
+                            <a id="weight_btn" href="./menu/weight.html">어디서 운동할까</a>
+                            <ul id="weight_menulist">
                                 <li>
-                                 <a id="weight_gyeonggi" href="./menu/weight_serach/weight_gyeonggi.html" style="display: none;">경기도</a>
-                               </li>
-                             </ul>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">강원도</a>
+                                    <select id="seoul" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">고양시</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">경기도</a>
+                                    <select id="gyeonggi_select" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option  value="">시를 선택해 주세요</option>
+                                        <option  value="가평">가평군</option>
+                                        <option  value="고양">고양시</option>
+                                        <option  value="과천">과천시</option>
+                                        <option  value="광명">광명시</option>
+                                        <option  value="광주">광주시</option>
+                                        <option  value="구리">구리시</option>
+                                        <option  value="군포">군포시</option>
+                                        <option  value="김포">김포시</option>
+                                        <option  value="남양주">남양주시</option>
+                                        <option  value="동두천">동두천시</option>
+                                        <option  value="부천">부천시</option>
+                                        <option  value="성남">성남시</option>
+                                        <option  value="수원">수원시</option>
+                                        <option  value="시흥">시흥시</option>
+                                        <option  value="안산">안산시</option>
+                                        <option  value="안성">안성시</option>
+                                        <option  value="안양">안양시</option>
+                                        <option  value="양주">양주시</option>
+                                        <option  value="양평">양평군</option>
+                                        <option  value="여주">여주시</option>
+                                        <option  value="연천">연천군</option>
+                                        <option  value="오산">오산시</option>
+                                        <option  value="용인">용인시</option>
+                                        <option  value="의왕">의왕시</option>
+                                        <option  value="의정부">의정부시</option>
+                                        <option  value="이천">이천시</option>
+                                        <option  value="파주">파주시</option>
+                                        <option  value="평택">평택시</option>
+                                        <option  value="포천">포천시</option>
+                                        <option  value="하남">하남시</option>
+                                        <option  value="화성">화성시</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">인천광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">고양시</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">경상남도</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">경상북도</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">광주광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">대구광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">대전광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">부산광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">서울특별시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">세종특별자치시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">울산광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">인천광역시</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                                <li>
+                                    <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html"
+                                        style="display: none;">전라남도</a>
+                                    <select id="moaal" class="weight_middlemenu" style="display: none;"
+                                        onchange="if(this.value) location.href=(this.value);">
+                                        <option value="">시를 선택해 주세요</option>
+                                        <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="./trip.html">어디 여행갈까</a>
@@ -50,49 +198,21 @@
                             <a href="./library.html">도서관을 사랑하자</a>
                         </li>
                     </ul>
+                    <script src="./weight_menu_handling.js"></script>
                 </div>
             </div>
             <div class="container2_2">
-                <div id="desc">
-                    <div id="map" style="width:500px;height:400px;"></div>
-	                    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=889f26784131742e1e6a269e8f4bc7ba&libraries=services&autoload=false"></script>
-	                    <script>
-                            kakao.maps.load(function() {
-                                var container = document.getElementById('map');
-		                        var options = {
-			                        center: new kakao.maps.LatLng(34.450701, 126.570667),
-			                        level: 3,
-		                        };
-
-		                        var map = new kakao.maps.Map(container, options);
-                                var geocoder = new kakao.maps.services.Geocoder();
-                                
-
-                                geocoder.addressSearch('경기도 부천시 심곡로 67번길 57-10', function(result, status) {
-
-                                    // 정상적으로 검색이 완료됐으면 
-                                    if (status === kakao.maps.services.Status.OK) {
-
-                                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                                     // 결과값으로 받은 위치를 마커로 표시합니다
-                                    var marker = new kakao.maps.Marker({
-                                         map: map,
-                                         position: coords
-                                                 });
-                                        }
-                                        map.setCenter(coords);
-                                    });
-                            });
-                                
-	                    </script>
-                    </div>
-                    <div id = "weight_Info"> 
+                <div id="top_desc"></div>
+                <div id="bottom_desc" style="overflow: auto;">
+                    <div id="map"></div>
+                    <script type="text/javascript"
+                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=889f26784131742e1e6a269e8f4bc7ba&libraries=services&autoload=false"></script>
+                    <div id="weight_Info" style="overflow: auto;">
                         <script src="./weight_origin.js"></script>
                     </div>
-            
-        </div>
-        
+                </div>
+            </div>
+
     </section>
 
 </body>
