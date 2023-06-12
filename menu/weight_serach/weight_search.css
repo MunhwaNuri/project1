@@ -136,3 +136,7 @@ h3{
     width: 60%;
     height: 100%;
 }
+
+#wight_info .weight_title:hover{
+    transform: scale(1.05);
+}

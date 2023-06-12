@@ -6,11 +6,10 @@ var weight_middlemenu = document.getElementsByClassName("weight_middlemenu");
 var weight_menulist = document.getElementById("weight_menulist");
 var sidebar_btn = document.getElementsByClassName("sidebar_btn")
    
-function hide_sidebar_btn() {
+function hide_sidebar_btn(e) {
   for(var i = 0; i < sidebar_btn.length; i++){
     sidebar_btn[i].style.display = "none";
   }
-  console.log("호가이");
 }
 
 function show_sidebar_btn() {

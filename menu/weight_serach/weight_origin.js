@@ -27,11 +27,15 @@ function createList(data){
 
 
 // 운동 api
-  function change_keywords(i){
+var weight_middlemenu = document.getElementsByClassName("weight_middlemenu");
+for(var i = 0; i < weight_middlemenu.length; i++){
+  weight_middlemenu[i].change = function (e){
     var select = document.getElementsByClassName("weight_middlemenu")[i];
-    var key = (select.options[select.selectedIndex].value);
-    
+    var keyword_region = (select.options[select.selectedIndex].value);
+    return keyword_region;
   }
+}
+
   var api_url = "http://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=";
   var key = "fm9N7sIDGSCECbq5onFQWtwHaojujxkaM4USNuoS%2B%2B4rLfAGEGi%2FTbHj1suhhruCatLIqQFs11D%2FNdkJO6lbDg%3D%3D";
   keyword = "&numOfRows=15&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword=경기&contentTypeId=28";
