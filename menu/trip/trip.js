@@ -159,26 +159,24 @@ function displayView(data, value){
    else{
     content.style.display='none';
    }
+
+   //사진이 변경될때마다 지도 위 마커 갱신
    var markerPosition  = new kakao.maps.LatLng(addry[value],addrx[value]);
    var marker = new kakao.maps.Marker({
        position: markerPosition
    });
    marker.setMap(map);
 
-   //마커위에 표시할 element를 생성하는 변수
    var iwContent = '<div>'+data[value].title+'</div>';
    
-   //마우스오버 이벤트 발생시 태그 생성
    var infowindow = new kakao.maps.InfoWindow({
        content : iwContent
    });
    
-   //마우스 오버: 마우스를 갖다대면 마크위 이벤트 생성
    kakao.maps.event.addListener(marker, 'mouseover', function() {
          infowindow.open(map, marker);
    });
 
-   //마우스 아웃: 마우스를 떼면 마크위 이벤트 소멸
    kakao.maps.event.addListener(marker, 'mouseout', function() {
        infowindow.close();
    });

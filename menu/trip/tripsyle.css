@@ -36,6 +36,23 @@
     font-size: 15px;
     /*transition: .7s;   //표출되는 효과 (사용여부 결정중)*/
 }
+.list_category{
+    text-align: center;
+}
+.list_category a{
+    text-decoration: none;
+    background-color: #f1a9a3;
+    color:slategrey;
+    width: 240px;
+    display: block;
+    padding: 13px 30px;
+    border-bottom: 1px solid #8a7371ab;
+    font-size: 16px;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
 
 .ulstyle .listyle .spanstyle1{
     width:250px;
