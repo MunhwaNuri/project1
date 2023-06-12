@@ -5,19 +5,32 @@
 .descs{
     margin:0 auto;
 }
+.search{
+    margin:40px auto;
+    align-items: center;
+}
+.containerMain{
+    display: flex;
+    flex-direction: row;
+}
 
-
-
+.container_trip{
+    width: 1200px;
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+}
 
 .ulstyle{
    width:600px;
    position: relative;
    box-sizing: border-box;
+   background-color: #F2C6C2;
 }
 
 .ulstyle .listyle{
     display: flex;
-    background-color: #F2C6C2;
+    background-color: #f1a9a3;
     padding: 10px 20px;
     margin: 5px 0;
     font-size: 15px;

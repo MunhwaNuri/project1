@@ -106,10 +106,11 @@ function createList(data){
     mainUL.className='ulstyle';
      
     for(let i=0; i<data.length; i++){
+        const maindiv=document.createElement('div');
+        maindiv.id=i;
         const mainli=document.createElement('li');
         mainli.value=i;
         mainli.className='listyle';
-        mainli.id=i;
         const centertitle=document.createElement('span');
         centertitle.className='spanstyle1';
         centertitle.innerHTML=data[i].title;
@@ -119,9 +120,22 @@ function createList(data){
         centeraddr.className='spanstyle2';
         centeraddr.innerHTML=data[i].addr1;
         mainli.appendChild(centeraddr);
-    
-        mainUL.appendChild(mainli);
-    
+        const photoZone=document.createElement('div');
+        photoZone.id="mydiv"+i;
+        photoZone.style.display="none";
+        const centerphoto1=document.createElement('img');
+        const centerphoto2=document.createElement('img');
+        centerphoto1.src=data[i].firstimage;
+        centerphoto1.style.width="300px";
+        centerphoto1.style.height="250px";
+        centerphoto2.src=data[i].firstimage2;
+        centerphoto2.style.width="300px";
+        centerphoto2.style.height="250px";
+        photoZone.appendChild(centerphoto1);
+        photoZone.appendChild(centerphoto2);
+        maindiv.appendChild(mainli);
+        maindiv.appendChild(photoZone);
+        mainUL.appendChild(maindiv);
         mainli.onclick=function(){
             let value=mainli.value;
             displayView(data,value);
@@ -134,10 +148,40 @@ function createList(data){
 
 //여행지 클릭시 이미지로 자세히 보기
 function displayView(data, value){
-   const photo=document.getElementById("photo1");
-   photo.src=data[value].firstimage;
+   //const photo=document.getElementById("photo1");
+   //photo.src=data[value].firstimage;
    var moveLation=new kakao.maps.LatLng(data[value].mapy,data[value].mapx);  //카카오맵 위치 갱신
    map.setCenter(moveLation);
+   var content=document.getElementById("mydiv"+value);
+   if(content.style.display=='none'){
+    content.style.display='block';
+   }
+   else{
+    content.style.display='none';
+   }
+   var markerPosition  = new kakao.maps.LatLng(addry[value],addrx[value]);
+   var marker = new kakao.maps.Marker({
+       position: markerPosition
+   });
+   marker.setMap(map);
+
+   //마커위에 표시할 element를 생성하는 변수
+   var iwContent = '<div>'+data[value].title+'</div>';
+   
+   //마우스오버 이벤트 발생시 태그 생성
+   var infowindow = new kakao.maps.InfoWindow({
+       content : iwContent
+   });
+   
+   //마우스 오버: 마우스를 갖다대면 마크위 이벤트 생성
+   kakao.maps.event.addListener(marker, 'mouseover', function() {
+         infowindow.open(map, marker);
+   });
+
+   //마우스 아웃: 마우스를 떼면 마크위 이벤트 소멸
+   kakao.maps.event.addListener(marker, 'mouseout', function() {
+       infowindow.close();
+   });
 }
 
 //갱신된 api를 바탕으로 createElement에 적용되어있던 태그와 내용을 갱신(replaceChild)하는 함수
@@ -145,25 +189,43 @@ function updateList(data){
     for(let i=0; i<data.length; i++){
         const oldnode=document.getElementById(i);
         const parent=oldnode.parentNode;
-        const newnode=document.createElement('li');
+        const newnode=document.createElement('div');
         newnode.id=i;
-        newnode.value=i;
-        newnode.className='listyle';
+        const mainli=document.createElement('li');
+        mainli.value=i;
+        mainli.className='listyle';
         const centertitle=document.createElement('span');
         centertitle.className='spanstyle1';
         centertitle.innerHTML=data[i].title;
-        newnode.appendChild(centertitle);
+        mainli.appendChild(centertitle);
         
         const centeraddr=document.createElement('span');
         centeraddr.className='spanstyle2';
         centeraddr.innerHTML=data[i].addr1;
-        newnode.appendChild(centeraddr);
-        newnode.onclick=function(){
-            let value=newnode.value;
+        mainli.appendChild(centeraddr);
+        const photoZone=document.createElement('div');
+        photoZone.id="mydiv"+i;
+        photoZone.style.display="none";
+        const centerphoto1=document.createElement('img');
+        const centerphoto2=document.createElement('img');
+        centerphoto1.src=data[i].firstimage;
+        centerphoto1.style.width="300px";
+        centerphoto1.style.height="250px";
+        centerphoto2.src=data[i].firstimage2;
+        centerphoto2.style.width="300px";
+        centerphoto2.style.height="250px";
+        photoZone.appendChild(centerphoto1);
+        photoZone.appendChild(centerphoto2);
+        newnode.appendChild(mainli);
+        newnode.appendChild(photoZone);
+        mainli.onclick=function(){
+            let value=mainli.value;
             displayView(data,value);
         }
         parent.replaceChild(newnode,oldnode);
+
     }
     
 }
+
 
