@@ -87,8 +87,11 @@ function createList(data){
           title.setAttribute("class", "weight_title");
           title.setAttribute("onclick", "change_img('"+data.item[i].firstimage+"','"+data.item[i].addr1+"')");
           title.setAttribute("style", "cursor: pointer;");
+          addr.setAttribute("style", "font-size:15px; cursor: pointer;");
+          addr.setAttribute("onclick", "window.open('https://map.naver.com/v5/search/"+data.item[i].addr1+"?c=15,0,0,0,dh')");
+          addr.setAttribute("target", "_blank");
           mainUL.setAttribute("style", "font-size:25px");
-          addr.setAttribute("style", "font-size:15px");
+          
 
         
           centerlist.appendChild(title);
