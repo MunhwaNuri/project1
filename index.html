@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500&family=Jua&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
   <!--
@@ -129,16 +130,15 @@
                       </div>
                     </div>
                 </div>
-                <div><h3>현재 발효중인 특보가 없습니다.</h3></div>
                 <div class="chartflex">
                     <div class="chartsize">
-                        <canvas id="donut-chart"></canvas>
+                      <div id="donut_single" style="width: 200px; height: 200px;"></div>
                     </div>
                     <div class="chartsize">
-                        <canvas id="donut-chart1"></canvas>
+                        
                     </div>
                     <div class="chartsize">
-                        <canvas id="donut-chart2"></canvas>
+                   
                     </div>
                 </div>
                 
@@ -149,90 +149,11 @@
     </section>
 
 </body>
-<script>
-var data = {
-  labels: ["초미세먼지"],
-  datasets: [{
-    data: [75],
-    backgroundColor: ["#FF6384"],
-    hoverBackgroundColor: ["#FF6384"]
-  }]
-};
 
-var canvas = document.getElementById("donut-chart");
-var chart = new Chart(canvas, {
-  type: "doughnut",
-  data: data,
-  options: {
-    cutoutPercentage: 0,
-    legend: {
-      display: false
-    },
-    tooltips: {
-      enabled: false
-    }
-  }
-});
-</script>
-<script>
-  
-    var data = {
-      labels: ["미세먼지"],
-      datasets: [{
-        data: [75],
-        backgroundColor: ["#2254F6"],
-        hoverBackgroundColor: ["#2254F6"]
-      }]
-    };
-    
-  
-    var canvas = document.getElementById("donut-chart1");
-    var chart = new Chart(canvas, {
-      type: "doughnut",
-      data: data,
-      options: {
-        cutoutPercentage: 0,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          enabled: false
-        }
-      }
-    });
-</script>
 
 <script>
  
-    var data = {
-      labels: ["오존(O3)"],
-      datasets: [{
-        data: [75],
-        backgroundColor: ["#22F654"],
-        hoverBackgroundColor: ["#22F654"]
-      }]
-    };
-    
-  
-    var canvas = document.getElementById("donut-chart2");
-    var chart = new Chart(canvas, {
-      type: "doughnut",
-      data: data,
-      options: {
-        cutoutPercentage: 0,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          enabled: false
-        }
-      }
-    });
-
-
-    function go_back(){
-  window.history.go(-1);
-}
+   
 
 var weight_topmenu = document.getElementsByClassName("weight_topmenu");
     var weight_btn = document.getElementById("weight_btn");
