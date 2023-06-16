@@ -137,7 +137,7 @@ h3{
     height: 100%;
 }
 
-.weight_title a:hover{
+.weight_title:hover{
     text-decoration: underline;
     text-decoration-color: black;
     text-decoration-thickness: 3px
