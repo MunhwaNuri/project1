@@ -26,56 +26,64 @@ function createList(data){
 //운동 도시 보이기
 
 
-// 운동 api
-var weight_middlemenu = document.getElementsByClassName("weight_middlemenu");
-for(var i = 0; i < weight_middlemenu.length; i++){
-  weight_middlemenu[i].change = function (e){
-    var select = document.getElementsByClassName("weight_middlemenu")[i];
-    var keyword_region = (select.options[select.selectedIndex].value);
-    return keyword_region;
-  }
+var query = new URLSearchParams(location.search);
+var loc = query.get("location");
+if (!loc) {
+  location.href="/menu/weight_serach/weight_value_fail.html";
+  location.replace(link);
 }
 
+// 운동 api
+  var weight_middlemenu = document.getElementsByClassName("weight_middlemenu"); 
   var api_url = "http://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=";
   var key = "fm9N7sIDGSCECbq5onFQWtwHaojujxkaM4USNuoS%2B%2B4rLfAGEGi%2FTbHj1suhhruCatLIqQFs11D%2FNdkJO6lbDg%3D%3D";
-  keyword = "&numOfRows=15&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword=경기&contentTypeId=28";
+  keyword = "&numOfRows=15&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+loc+"&contentTypeId=28";
   var url = api_url + key + keyword;
   fetch(url)
       .then(response => response.json())
-      .then(data => data.response.body.items)
+      .then(data => data.response.body)
       .then(data => {
           console.log(url)
           console.log(data)
 
-          KaKaomap(data.item[0].addr1)
           weight_createList(data)
-          weight_img(data)
+          KaKaomap(data.items.item[0].addr1)
+          weight_img(data.items)
+          change_selected()
 
           })
       .catch(error => console.log(error));
 
+      function change_selected() {
+        document.querySelector("option[value='"+loc+"']").setAttribute("selected", true);
+      }
 
       function weight_img(data){
         var Img = document.createElement('img');
         Img.setAttribute("src", data.item[0].firstimage);
-        Img.setAttribute("alt", "이미지가 없는데요?");
+        Img.setAttribute("alt", "이미지가 없습니다");
         Img.setAttribute("id", "weight_img");
         Img.setAttribute("style", "width:40%; height:100%");
         document.getElementById("top_desc").appendChild(Img);
       }
 
-      function change_img(firstimage,addr){
-          var Img = document.getElementById("weight_img");
-          Img.setAttribute("src", firstimage);
-          KaKaomap(addr);
-        
+      function change_img(item){
+        item = JSON.parse(item);
+        var Img = document.getElementById("weight_img");
+        Img.setAttribute("src", item.firstimage);
+        KaKaomap(item.addr1);
       }
 
-     
-
       function weight_createList(data){
+        //예외 처리
+        console.log(data.totalCount);
+        if(data.totalCount == 0){
+          location.href="/menu/weight_serach/weight_location_fail.html";
+          location.replace(link);
+        };
+
         const mainUL=document.createElement('ol');
-        for(let i=0; i<data.item.length; i++){
+        for(let i=0; i<data.items.item.length; i++){
           
           var centerlist=document.createElement('li');
           var title=document.createElement('a');
@@ -83,17 +91,20 @@ for(var i = 0; i < weight_middlemenu.length; i++){
           var br = document.createElement('br');
           
           
-          title.innerHTML=data.item[i].title;
-          addr.innerHTML=data.item[i].addr1;
+          title.innerHTML=data.items.item[i].title;
+          addr.innerHTML=data.items.item[i].addr1;
 
 
           centerlist.setAttribute("style", "margin:10px;");
           title.setAttribute("class", "weight_title");
-          title.setAttribute("onclick", "change_img('"+data.item[i].firstimage+"','"+data.item[i].addr1+"')");
+          title.setAttribute("onclick", "change_img('"+ JSON.stringify(data.items.item[i]) +"')");
           title.setAttribute("style", "cursor: pointer;");
-          addr.setAttribute("style", "font-size:15px; cursor: pointer;");
-          addr.setAttribute("onclick", "window.open('https://map.naver.com/v5/search/"+data.item[i].addr1+"?c=15,0,0,0,dh')");
+
+          addr.setAttribute("class", "weight_addr");
+          addr.setAttribute("style", "font-size:15px; cursor: pointer; .");
+          addr.setAttribute("onclick", "window.open('https://map.naver.com/v5/search/"+data.items.item[i].addr1+"?c=15,0,0,0,dh')");
           addr.setAttribute("target", "_blank");
+          
           mainUL.setAttribute("style", "font-size:25px");
           
 
@@ -102,6 +113,7 @@ for(var i = 0; i < weight_middlemenu.length; i++){
           centerlist.appendChild(br);
           centerlist.appendChild(addr);
           mainUL.appendChild(centerlist);
+
           
           }
         document.getElementById("weight_Info").appendChild(mainUL);

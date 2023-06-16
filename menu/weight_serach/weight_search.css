@@ -137,6 +137,24 @@ h3{
     height: 100%;
 }
 
-#wight_info .weight_title:hover{
-    transform: scale(1.05);
+.weight_title a:hover{
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px
+}
+
+.weight_addr:hover{
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 1px
+}
+
+
+#top_desc_title{
+    margin-top: 30%;
+    height: 45%;
+    width: 100%;
+    font-size: 40px;
+    text-align: center;
+
 }
