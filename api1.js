@@ -3,34 +3,60 @@
 main화면 관련 js
 현재 날씨 현황에 대한 대시보드
 */
-var endpoint = "https://api.openweathermap.org/data/2.5/weather";
-var link2="http://api.openweathermap.org/data/2.5/air_pollution?lat=50&lon=50&appid=0a49043ba8f80d748644f6a519298486";
-var apiKey = "0a49043ba8f80d748644f6a519298486";
+var endpoint="https://api.openweathermap.org/data/2.5/weather";  // 현시각 지역 날씨 링크
+var pollutionpoint="http://api.openweathermap.org/data/2.5/air_pollution"; // 현시각 지역 대기수준
+var apiKey="0a49043ba8f80d748644f6a519298486";
 
-var cityName = document.getElementById("city-name");
-var temp = document.getElementById("temp");
-var weatherIcon = document.getElementById("weather-icon");
-var des = document.getElementById("des");
+var cityName=document.getElementById("city-name");
+var temp=document.getElementById("temp");
+var weatherIcon=document.getElementById("weather-icon");
+var des=document.getElementById("des");
 var feel=document.getElementById("feel");
 var humi=document.getElementById("humi");
-var cityname="seoul";
+var cityname="서울";
+var lat=37.5518911;
+var lon=126.9917937;
+
+var link2=pollutionpoint+"?lat="+lat+"&lon="+lon+"&appid=0a49043ba8f80d748644f6a519298486"; //대기오염정보 api 링크
 
 axios({                      // 대기오염 정보에 대한 api 가져오기 
   method:'get',              // 현재 날씨 api와는 다르게 좌표로만 지역정보를 가져올수 있다.
   url:link2,
 }).then((response)=>{
-  console.log(response);
+  console.log('pollution',response);
 });
 
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ['Effort', 'Amount given'],
+    ['My all',     70],
+  ]);
 
-var url = endpoint + "?q="+cityname + "&units=metric" + "&appid=" + apiKey;
+  var options = {
+    pieHole: 0.7,
+    pieSliceTextStyle: {
+      color: 'black',
+    },
+    legend: 'none',
+    pieStartAngle: 90,
+    backgroundColor:'#F2E8DF',
+    
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+  chart.draw(data, options);
+}
+
+var url = endpoint + "?lat="+lat+"&lon="+lon+"&units=metric" + "&appid=" + apiKey;
 fetch(url)
   .then(response => response.json())
   .then(data => {
     console.log(url);
     console.log(data);
-    cityName.innerHTML = data.name;
-    temp.innerHTML = Math.round(data.main.temp);
+    cityName.innerHTML = cityname;
+    temp.innerHTML = Math.round(data.main.temp); //소수점으로 기온을 표기하기엔 너무 시각화가 좋지않아 반올림 실시
     weatherIcon.src = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
     des.innerHTML = wDescEngToKor(data.weather[0].id);
     feel.innerHTML=Math.round(data.main.feels_like);
@@ -66,22 +92,35 @@ function wDescEngToKor(w_id) {
   return "none";
 }
 
+
+
 function printname(){
   var x=document.getElementById("myText").value;
   cityname=x;
-  console.log(cityName);
-  url = endpoint + "?q="+cityname + "&units=metric" + "&appid=" + apiKey;
-  fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    console.log(url);
-    console.log(data);
-    cityName.innerHTML = data.name;
-    temp.innerHTML = Math.round(data.main.temp);
-    weatherIcon.src = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
-    des.innerHTML = wDescEngToKor(data.weather[0].id);
-    feel.innerHTML=Math.round(data.main.feels_like);
-    humi.innerHTML=data.main.humidity;
-  })
-  .catch(error => console.log(error));
+  axios({
+    method:'get',
+    url:'https://maps.googleapis.com/maps/api/geocode/json?address='+cityname+'&key=AIzaSyAiUkL3c3OHpTAxy5UpFIiDt2nQhB1AGiw',
+}).then((response)=>{
+  data=response.data.results[0];
+  cityname=data.address_components[0].long_name;
+  console.log(cityname);
+  lat=data.geometry.location.lat;
+  lon=data.geometry.location.lng;
+  console.log('lat', typeof(lat));
+  var url1 = endpoint + "?lat="+lat+"&lon="+lon+"&units=metric" + "&appid=" + apiKey;
+  axios({
+    method:'get',
+    url:url1
+  }).then((res)=>{
+    console.log('res',res);
+    cityName.innerHTML = cityname;
+    temp.innerHTML = Math.round(res.data.main.temp);
+    weatherIcon.src = "https://openweathermap.org/img/w/" + res.data.weather[0].icon + ".png";
+    des.innerHTML = wDescEngToKor(res.data.weather[0].id);
+    feel.innerHTML=Math.round(res.data.main.feels_like);
+    humi.innerHTML=res.data.main.humidity
+  })  
+    console.log(response);
+  
+});
 }

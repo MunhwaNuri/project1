@@ -5,23 +5,53 @@
 .descs{
     margin:0 auto;
 }
+.search{
+    margin:40px auto;
+    align-items: center;
+}
+.containerMain{
+    display: flex;
+    flex-direction: row;
+}
 
-
-
+.container_trip{
+    width: 1200px;
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+}
 
 .ulstyle{
    width:600px;
    position: relative;
    box-sizing: border-box;
+   background-color: #F2C6C2;
 }
 
 .ulstyle .listyle{
     display: flex;
-    background-color: #F2C6C2;
+    background-color: #f1a9a3;
     padding: 10px 20px;
     margin: 5px 0;
     font-size: 15px;
     /*transition: .7s;   //표출되는 효과 (사용여부 결정중)*/
+}
+.list_category{
+    text-align: center;
+}
+.list_category a{
+    text-decoration: none;
+    background-color: #f1a9a3;
+    color:slategrey;
+    width: 240px;
+    display: block;
+    padding: 13px 30px;
+    border-bottom: 1px solid #8a7371ab;
+    font-size: 16px;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 
 .ulstyle .listyle .spanstyle1{
