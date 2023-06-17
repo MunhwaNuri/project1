@@ -71,6 +71,19 @@ h3{
     text-align: center;
 }
 
+/*pagination css*/
+.pagination {
+    display: inline-block;
+    margin:20px auto;
+}
+  
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
 /*display: block이 옆 container2_2의 크기 변동에 따라 계속 움직이게 되므로 width:240px를 설정하여 일부 고정을 시켜놓았음*/
 .side_list ul .list a{
     text-decoration: none;
