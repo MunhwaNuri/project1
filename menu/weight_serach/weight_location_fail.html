@@ -75,6 +75,7 @@
                                         <option  value="고양">고양시</option>
                                         <option  value="과천">과천시</option>
                                         <option  value="광명">광명시</option>
+                                        <option  value="광주">광주시</option>
                                         <option  value="구리">구리시</option>
                                         <option  value="군포">군포시</option>
                                         <option  value="김포">김포시</option>
@@ -238,8 +239,8 @@
                                     <select class="weight_middlemenu" style="display: none;"
                                     onchange="window.location.href = '/menu/weight_serach/weight_origin.html?location=' + this.value">
                                         <option value="">시를 선택해 주세요</option>
-                                        <option value="전주" >전주시</option>
-                                        <option value="군산" >군산시</option>
+                                        <option value="전주">전주시</option>
+                                        <option value="군산">군산시</option>
                                         <option value="익산">익산시</option>
                                         <option value="정읍">정읍시</option>
                                         <option value="남원">남원시</option>
@@ -295,13 +296,11 @@
                 </div>
             </div>
             <div class="container2_2">
-                <div id="top_desc"></div>
+                <div id="top_desc">
+                    <h1 id = "top_desc_title">검색된 정보가 없습니다!</h1>
+                </div>
                 <div id="bottom_desc" style="overflow: auto;">
-                    <div id="map"></div>
-                    <script type="text/javascript"
-                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=889f26784131742e1e6a269e8f4bc7ba&libraries=services&autoload=false"></script>
                     <div id="weight_Info" style="overflow: auto;">
-                        <script src="./weight_origin.js"></script>
                     </div>
                 </div>
             </div>
@@ -310,8 +309,8 @@
 
     <script>
         function selectChanged() {
-            // (e) => window.location.href = '/project1/menu/weight_search/weight_origin.html?location=' + e.target.value}
-            console.log(this.value      );
+            // (e) => window.location.href = '/menu/weight_search/weight_origin.html?location=' + e.target.value}
+            console.log(this.value);
         }
     </script>
 </body>

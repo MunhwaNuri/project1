@@ -53,10 +53,12 @@ body{
     flex-grow:5;
     margin-top:20px;
     max-width: 900px;
+    max-height: 800px;
+    background-color: burlywood;
     border-radius: 10px;
-    display: flex;
     flex-direction: column;
     justify-content:space-evenly;
+    
     
 }
 
@@ -97,9 +99,62 @@ h3{
 
 .side_list ul li a:hover,
 .side_list ul li a.active{
+     text-decoration: underline;
+     text-decoration-color: #006;
+     text-decoration-thickness: 6px
+}
+.side_list ul li ul li a{
     color: #0c7db1;
     background:white;
     border-right: 2px solid rgb(5, 68, 104);
     border-left: 2px solid rgb(5, 68, 104);
 }
 
+.weight_middlemenu{
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+
+#bottom_desc{
+    display: flex;
+    width: 100%;
+    height: 65%;
+}
+
+#top_desc{
+    height: 35%;
+    width: 100%;
+    text-align: center;
+}
+
+#weight_Info{
+    width: 40%;
+    height: 100%;
+}
+#map{
+    width: 60%;
+    height: 100%;
+}
+
+.weight_title:hover{
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 3px
+}
+
+.weight_addr:hover{
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-decoration-thickness: 1px
+}
+
+
+#top_desc_title{
+    margin-top: 30%;
+    height: 45%;
+    width: 100%;
+    font-size: 40px;
+    text-align: center;
+
+}

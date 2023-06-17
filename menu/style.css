@@ -85,8 +85,8 @@ h3{
     padding-bottom: 20px;
 }
 
-.side_list ul li a:hover,
-.side_list ul li a.active{
+.side_list ul .list a:hover,
+.side_list ul .list a.active{
     color: #0c7db1;
     background:white;
     border-right: 2px solid rgb(5, 68, 104);

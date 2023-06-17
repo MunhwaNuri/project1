@@ -29,16 +29,16 @@
     <h1>문화누리</h1>
   </div>
 
-  <div class="nav">
+  <div class="nav">ㅎ
     <ul class = "main-menu">
         <li><a href="./index.html">HOME</a></li>
-        <li><a href="./menu/weight_serach/weight_origin.html">운동</a>
+        <li><a href="./menu/weight_serach/weight_origin.html?location=운동">운동</a>
             <ul class="sub-menu">
-                <li>경기도</li>
-                <li>서울특별시</li>
-                <li>충청도</li>
-                <li>경상도</li>
-                <li>전라도</li>
+                <li><a href="./menu/weight_serach/weight_origin.html?location=경기">경기도</a></li>
+                <li><a  href="./menu/weight_serach/weight_origin.html?location=서울">서울특별시</a></li>
+                <li><a  href="./menu/weight_serach/weight_origin.html?location=충청">충청도</a></li>
+                <li><a  href="./menu/weight_serach/weight_origin.html?location=경상">경상도</a></li>
+                <li><a  href="./menu/weight_serach/weight_origin.html?location=전라">전라도</a></li>
             </ul>
         </li>
         <li><a href="./menu/trip.html">여행</a>
@@ -65,7 +65,7 @@
                         </li>
                         <li>
                             <a id = "weight_btn"href="./menu/weight.html">어디서 운동할까</a>
-                            <ul>
+                            <ul id ="weight_menulist">
                               <li>
                                 <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html" style="display: none;">경기도</a>
                                 <select id="gyeonggi_select" class="weight_middlemenu" style="display: none;"onchange="if(this.value) location.href=(this.value);">
@@ -84,6 +84,11 @@
                             </li>
                             <li>
                               <a class="weight_topmenu" href="./menu/weight_serach/weight_gyeonggi.html" style="display: none;">경기도</a>
+                              <select id="moaal" class="weight_middlemenu" style="display: none;"onchange="if(this.value) location.href=(this.value);">
+                                <option value="">시를 선택해 주세요</option>
+                                <option value="./menu/weight_serach/weight_gyeonggi.html">가평군</option>
+                                <option value="./menu/weight_serach/weight_gyeonggi.html">고양시</option>
+                              </select>
                             </li>
                            </ul>
                         </li>
@@ -97,6 +102,7 @@
                             <a href="./menu/library.html">도서관을 사랑하자</a>
                         </li>
                     </ul>
+                    <script src = "./weight_menu_handling.js"></script>
                 </div>
             </div>
             -->
@@ -154,98 +160,6 @@
 <script>
  
    
-
-var weight_topmenu = document.getElementsByClassName("weight_topmenu");
-    var weight_btn = document.getElementById("weight_btn");
-    var gyeonggi_select = document.getElementById("gyeonggi_select");
-    var weight_middlemenu = document.getElementsByClassName("weight_middlemenu");
-    //상위메뉴 코드
-    function show_weight_topmenu(){
-      for(var i = 0; i < weight_topmenu.length; i++) {
-        weight_topmenu[i].style.display = "block";
-      }
-    }
-
-    function hide_weight_topmenu(){
-      for(var i = 0; i < weight_topmenu.length; i++) {
-        weight_topmenu[i].style.display = "none";
-      }
-    }
-
-    function show_weight_middlemenu(){
-      for(var i = 0; i < weight_middlemenu.length; i++) {
-        weight_middlemenu[i].style.display = "block";
-      }
-    }
-
-    function hide_weight_middlemenu(){ 
-      for(var i = 0; i < weight_middlemenu.length; i++) {
-        weight_middlemenu[i].style.display = "none";
-      }
-    }
-
-
-    weight_btn.onmouseenter = function (e) {
-      for(var i = 0; i < weight_topmenu.length; i++) {
-        weight_topmenu[i].style.display = "block";
-      }
-    };
-    
-    weight_btn.onmouseleave = function (e) {
-      for(var i = 0; i < weight_topmenu.length; i++) {
-        weight_topmenu[i].style.display = "none";
-      }
-    };
-
-      for(var i = 0; i < weight_topmenu.length; i++) {
-        weight_topmenu[i].addEventListener('mouseover', show_weight_topmenu)
-      };
-    
-     
-      for(var i = 0; i < weight_topmenu.length; i++) {
-        weight_topmenu[i].addEventListener('mouseout', hide_weight_topmenu)
-      };
-
-
-// 하위메뉴 코드
-      
-      for(var i = 0; i< weight_topmenu.length; i++) {
-           weight_topmenu[i].onmouseenter = function (e) {
-            let parent = this.parentElement;
-            let middle = parent.querySelector(".weight_middlemenu");
-            middle.style.display = "block";
-            };  
-            weight_topmenu[i].onmouseleave = function (e) {
-            let parent = this.parentElement;
-            let middle = parent.querySelector(".weight_middlemenu");
-            middle.style.display = "none";
-            };
-        };
-
-        
-        for(var i = 0; i< weight_middlemenu.length; i++) {
-           weight_middlemenu[i].onmouseenter = function (e) {
-            let parent = this.parentElement;
-            let grand_parent = parent.parentElement;
-            let top = grand_parent.querySelectorAll(".weight_topmenu");
-            for(var i = 0; i < top.length; i++) {
-                  top[i].style.display = "block"
-                };
-            let middle = parent.querySelector(".weight_middlemenu");
-            middle.style.display = "block";
-                //미들메뉴 모두 없애는거 만들어야함
-            weight_middlemenu[i].onmouseleave = function (e) {
-            let parent = this.parentElement;
-            let grand_parent = parent.parentElement;
-            let top = grand_parent.querySelectorAll(".weight_topmenu");
-            for(var i = 0; i < top.length; i++) {
-                  top[i].style.display = "none"
-                };
-            let middle = parent.querySelector(".weight_middlemenu");
-            middle.style.display = "none";
-            };  
-        };
-    };
 
 </script>
 
