@@ -16,6 +16,8 @@ if (!pageNo) {
 
 var addrx=new Array();
 var addry=new Array();
+var start=new Array();
+var ending=new Array();
 
 //지도생성
 var container = document.getElementById('map');
@@ -33,6 +35,11 @@ var serviceKey="nfGyrhix1PGJ1x6F%2BZ2%2Frqm0BLUzXIXxcN1sCy2dmW0SfkEgRbq3y1yqJYCh
 var option="&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A";
 var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+option+"&eventStartDate="+time;
 
+// yyyy/mm/dd 중간 삽입을 위한 함수.
+String.prototype.insertAt = function(index,str){
+    return this.slice(0,index) + str + this.slice(index);
+}
+
 //1page api 자료 가져오기 (사이트 로드 초기)
 axios({
     method:'get',
@@ -42,9 +49,14 @@ axios({
     console.log(response.data.response.body.items.item);
     let data=response.data.response.body.items.item;
     let totalCount=response.data.response.body.totalCount;
-    
-    createList(data, totalCount);
+     
     for(let i=0; i<10; i++){
+        start.push(data[i].eventstartdate);
+        start[i]=start[i].insertAt(4,'/');
+        start[i]=start[i].insertAt(7,'/');
+        ending.push(data[i].eventenddate);
+        ending[i]=ending[i].insertAt(4,'/');
+        ending[i]=ending[i].insertAt(7,'/');
         addrx.push(parseFloat(data[i].mapx));  
         addry.push(parseFloat(data[i].mapy));
         addrx[i]=addrx[i].toFixed(6);
@@ -52,6 +64,7 @@ axios({
         addry[i]=addry[i].toFixed(6);
         addry[i]=parseFloat(addry[i]);
     }
+    createList(data, totalCount);
 
     var moveLation=new kakao.maps.LatLng(addry[0],addrx[0]);  //카카오맵 위치 갱신
     map.setCenter(moveLation);
@@ -64,7 +77,7 @@ axios({
     marker.setMap(map);
 
     //마커위에 표시할 element를 생성하는 변수
-    var iwContent = '<div>'+data[0].title+'</div>';
+    var iwContent ='<div>'+data[0].title+'</div>'+'<div>Tel:'+data[0].tel+'</div>';
     
     //마우스오버 이벤트 발생시 태그 생성
     var infowindow = new kakao.maps.InfoWindow({
@@ -80,7 +93,11 @@ axios({
     kakao.maps.event.addListener(marker, 'mouseout', function() {
         infowindow.close();
     });
+}).catch((error)=>{
+    alert('정보를 받아올 없습니다. 잠시후 다시 시도해주세요.');
+    location.href="../../index.html";
 })
+
 
 function createList(data, totalCount){
     const pageUL=document.createElement('div');
@@ -88,6 +105,10 @@ function createList(data, totalCount){
     const mainUL=document.createElement('ul');
     mainUL.className='ulstyle';
     let total;
+
+    console.log('start1',start[0]);
+    console.log('end1',ending);
+
 
     if(totalCount%10==0){
         total=totalCount/10;
@@ -98,15 +119,14 @@ function createList(data, totalCount){
 
     for(let i=1; i<total; i++){
         pageUL.value=i;
-        console.log('pageUL', pageUL.value);
         const pagea=document.createElement('a');
         pagea.href='../menu/trip2.html?page='+i;
-        pagea.id=i+10;
         pagea.onclick=function(){
             pagenext(pageUL.value);
         }
         pagea.innerHTML=i;
         pageUL.appendChild(pagea);
+        
     }
     for(let i=0; i<data.length; i++){
         const maindiv=document.createElement('div');
@@ -115,15 +135,21 @@ function createList(data, totalCount){
         mainli.value=i;
         mainli.className='listyle';
         const centertitle=document.createElement('span');
-        centertitle.className='spanstyle1';
+        centertitle.className='spanstyle1_1';
         centertitle.innerHTML=data[i].title;
         mainli.appendChild(centertitle);
+
+        const timeline=document.createElement('span');
+        timeline.className='timelinestyle';
+        timeline.innerHTML=start[i]+'~'+ending[i];
+        mainli.appendChild(timeline);
+
         const atag=document.createElement('a');
         atag.href="https://map.kakao.com/link/search/"+data[i].addr1+data[i].addr2;
         atag.target='_blank';
         atag.className='atag';
         const centeraddr=document.createElement('span');
-        centeraddr.className='spanstyle2';
+        centeraddr.className='spanstyle2_1';
         centeraddr.innerHTML="자세히보기";
         atag.appendChild(centeraddr);
         mainli.appendChild(atag);
@@ -155,79 +181,7 @@ function createList(data, totalCount){
 
 }
 
-function updateList(data){
-    console.log('global2',globaltotal);
-    if(globaltotal>total){
-        for(let i=total+1; i<=globaltotal; i++){
-            const oldnode=document.getElementById(i+10);
-            console.log('oldnode',oldnode.parentNode);
-            const parent=oldnode.parentNode;
-            const newnode=document.createElement('a');
-            newnode.id=i+10;
-            parent.replaceChild(newnode,oldnode);
-        }
-        globaltotal=total;
-    }
-    else{
-        globaltotal=total;
-    }
 
-    for(let i=0; i<data.length; i++){
-        const oldnode=document.getElementById(i);
-        const parent=oldnode.parentNode;
-        
-        const newnode=document.createElement('div');
-        console.log(data.length);
-        newnode.id=i;
-        const mainli=document.createElement('li');
-        mainli.value=i;
-        mainli.className='listyle';
-        
-        const centertitle=document.createElement('span');
-        centertitle.className='spanstyle1';
-        centertitle.innerHTML=data[i].title;
-        mainli.appendChild(centertitle);
-        const atag=document.createElement('a');
-        atag.href="https://map.kakao.com/link/search/"+data[i].addr1+data[i].addr2;
-        atag.target='_blank';
-        atag.className='atag';
-        const centeraddr=document.createElement('span');
-        centeraddr.className='spanstyle2';
-        centeraddr.innerHTML="자세히보기";
-        atag.appendChild(centeraddr);
-        mainli.appendChild(atag);
-        const photoZone=document.createElement('div');
-        photoZone.id="mydiv"+i;
-        photoZone.style.display="none";
-        const centerphoto1=document.createElement('img');
-        const centerphoto2=document.createElement('img');
-        centerphoto1.src=data[i].firstimage;
-        centerphoto1.style.width="300px";
-        centerphoto1.style.height="250px";
-        centerphoto2.src=data[i].firstimage2;
-        centerphoto2.style.width="300px";
-        centerphoto2.style.height="250px";
-        photoZone.appendChild(centerphoto1);
-        photoZone.appendChild(centerphoto2);
-        newnode.appendChild(mainli);
-        newnode.appendChild(photoZone);
-        mainli.onclick=function(){
-            let value=mainli.value;
-            displayView(data,value);
-        }
-        parent.replaceChild(newnode,oldnode);
-    }
-    // 새로 들어오는 data가 10개 미만시 나머지 카드를 빈 div로 처리
-    if(data.length<10){
-        for(let i=data.length; i<10; i++){
-            const oldnode=document.getElementById(i);
-            const parent=oldnode.parentNode;
-            const newnode=document.createElement('div');
-            newnode.id=i;
-            parent.replaceChild(newnode,oldnode);
-        }
-    }
-}
 
 function displayView(data, value){
     var content=document.getElementById("mydiv"+value);
@@ -248,7 +202,7 @@ function displayView(data, value){
     });
     marker.setMap(map);
 
-    var iwContent = '<div>'+data[value].title+'</div>';
+    var iwContent ='<div>'+data[value].title+'</div>'+'<div>Tel:'+data[value].tel+'</div>';
    
     var infowindow = new kakao.maps.InfoWindow({
        content : iwContent
@@ -263,32 +217,3 @@ function displayView(data, value){
     });
 }
 
-function pagenext(index){
-    console.log('index', index);
-    var url=url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+index+option+"&eventStartDate="+time;
-
-    axios({
-        method:'get',
-        url:url,
-    }).then((response)=>{
-        let data=response.data.response.body.items.item;
-
-        addrx.splice(0,addrx.length);  //이미 생성된 좌표리스트를 초기화해준다.
-        addry.splice(0,addry.length);
-        updateList(data);
-        for(let i=0; i<10; i++){
-            addrx.push(parseFloat(data[i].mapx));  
-            addry.push(parseFloat(data[i].mapy));
-            addrx[i]=addrx[i].toFixed(6);
-            addrx[i]=parseFloat(addrx[i]);
-            addry[i]=addry[i].toFixed(6);
-            addry[i]=parseFloat(addry[i]);
-        }
-        var moveLation=new kakao.maps.LatLng(addry[0],addrx[0]);  //카카오맵 위치 갱신
-        map.setCenter(moveLation);
-        var marker = new kakao.maps.Marker({
-            position: markerPosition
-        });
-        marker.setMap(map);
-    })
-}

@@ -15,11 +15,11 @@ body{
     border-top: none;
     border-left: none;
     border-right:none;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #F28585;
 }
 
 .button{
-    background-color:#0a0a23;
+    background-color:#F28585;
     color: #fff;
     border:none; 
     border-radius:10px; 
@@ -27,7 +27,7 @@ body{
     min-width: 80px;
 }
 .button:hover {
-    background-color:#5c5e64;
+    background-color:#945353;
     transition: 0.3s;
 }
 /*2차 디자인 header style*/

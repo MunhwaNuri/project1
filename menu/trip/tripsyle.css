@@ -1,4 +1,3 @@
-
 .atag{
     text-decoration: none;
     background-color: #F2C6C2;
@@ -26,6 +25,10 @@
     margin-top:20px;
     display: flex;
     flex-direction: column;
+}
+
+.container_trip2{
+    margin-top: 100px;
 }
 
 .ulstyle{
@@ -69,6 +72,17 @@
     text-align: center;
 }
 
+.ulstyle .listyle .spanstyle1_1{
+    width:300px;
+}
+.ulstyle .listyle .spanstyle2_1{
+    width: 75px;
+    text-align: center;
+}
+.ulstyle .listyle .timelinestyle{
+    width:180px;
+}
+
 .ulstyle .listyle:hover{
     transform: scale(1.05);
 }
@@ -79,11 +93,11 @@
     border-top: none;
     border-left: none;
     border-right:none;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #F28585;
 }
 
 .button{
-    background-color:#0a0a23;
+    background-color:#F28585;
     color: #fff;
     border:none; 
     border-radius:10px; 
@@ -91,6 +105,6 @@
     min-width: 80px;
 }
 .button:hover {
-    background-color:#5c5e64;
+    background-color:#945353;
     transition: 0.3s;
 }

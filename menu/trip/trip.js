@@ -20,12 +20,14 @@ if (!pageNo) {
     pageNo = 1;
 
 }
-var keyword="서울";
+if(!localName){
+    localName='서울';
+}
 var addrx=new Array();
 var addry=new Array();
 var globaltotal=0;
 
-var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+keyword+"&contentTypeId=12";
+var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+localName+"&contentTypeId=12";
 console.log(url);
 axios({
     method:'get',
@@ -82,8 +84,8 @@ axios({
 //input으로 지역명을 받을시 여행지 리스트 api를 갱신하는 함수, 지도도 갱신
 function printname(){
     var x=document.getElementById("myText").value;
-    keyword=x;
-    var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+keyword+"&contentTypeId=12";
+    localName=x;
+    var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+localName+"&contentTypeId=12";
     axios({
         method:'get',
         url:url,
@@ -178,8 +180,7 @@ function createList(data, totalCount){
         pageUL.value=i;
         
         const pagea=document.createElement('a');
-        console.log('key',keyword);
-        pagea.href='../menu/trip.html?page='+i+'&keyword='+keyword;
+        pagea.href='../menu/trip.html?page='+i+'&keyword='+localName;
         pagea.id=i+10;
         pagea.onclick=function(){
             console.log('keyword', pageNo.vlaue);
@@ -282,7 +283,7 @@ function updateList(data, totalCount){
         const parent=oldnode.parentNode;
         const newnode=document.createElement('a');
         newnode.id=i+10;
-        newnode.href='../menu/trip.html?page='+i+"&keyword="+keyword;
+        newnode.href='../menu/trip.html?page='+i+"&keyword="+localName;
         newnode.onclick=function(){
             pagenext(parent.value);
         }
