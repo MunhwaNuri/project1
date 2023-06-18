@@ -16,6 +16,13 @@ var humi=document.getElementById("humi");
 var cityname="서울";
 var lat=37.5518911;
 var lon=126.9917937;
+var pm25=document.getElementById("pm25");    // 대기질 수치를 반환
+var pm10=document.getElementById("pm10");
+var o3=document.getElementById("o3");
+
+var con25=document.getElementById("con25");  // 대기질의 좋고 나쁨을 구분
+var con10=document.getElementById('con10');
+var cono3=document.getElementById('cono3');
 
 var link2=pollutionpoint+"?lat="+lat+"&lon="+lon+"&appid=0a49043ba8f80d748644f6a519298486"; //대기오염정보 api 링크
 
@@ -24,30 +31,81 @@ axios({                      // 대기오염 정보에 대한 api 가져오기
   url:link2,
 }).then((response)=>{
   console.log('pollution',response);
+  data=response.data.list[0].components;
+  let o3Data=o3cal(data.o3);
+  con10.innerHTML=airpm10(data.pm10);
+  con25.innerHTML=airpm25(data.pm2_5);
+  cono3.innerHTML=airo3(o3Data);
+  pm25.innerHTML=data.pm2_5;
+  pm10.innerHTML=data.pm10;
+  o3.innerHTML=o3Data;
 });
 
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Effort', 'Amount given'],
-    ['My all',     70],
-  ]);
+function o3cal(o3){
+  console.log(o3);
+  let n;
+  n=(o3*0.0224)/46;
+  console.log("n", n);
+  n=n.toFixed(4);
 
-  var options = {
-    pieHole: 0.7,
-    pieSliceTextStyle: {
-      color: 'black',
-    },
-    legend: 'none',
-    pieStartAngle: 90,
-    backgroundColor:'#F2E8DF',
-    
-  };
-
-  var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
-  chart.draw(data, options);
+  return n;
 }
+function airpm25(pm){
+  if(pm>=0 && pm<=15){
+    con25.style.color="blue";
+    return('좋음');
+  }
+  else if(pm>=16 && pm<=35){
+    con25.style.color="green";
+    return('보통');
+  }
+  else if(pm>=36 && pm<=75){
+    con25.style.color="#FFBB00";
+    return('나쁨');
+  }
+  else{
+    con25.style.color="red";
+    return('매우나쁨');
+  }
+}
+
+function airpm10(pm){
+  if(pm>=0 && pm<=30){
+    con10.style.color="blue";
+    return('좋음');
+  }
+  else if(pm>=31 && pm<=80){
+    con10.style.color="green";
+    return('보통');
+  }
+  else if(pm>=81 && pm<=150){
+    con10.style.color="#FFBB00";
+    return('나쁨');
+  }
+  else{
+    con10.style.color="red";
+    return('매우나쁨');
+  }
+}
+function airo3(o3){
+  if(o3>=0 && o3<=0.030){
+    cono3.style.color="blue";
+    return('좋음');
+  }
+  else if(o3>=0.031 && o3<=0.090){
+    cono3.style.color="green";
+    return('보통');
+  }
+  else if(o3>=0.091 && o3<=0.150){
+    cono3.style.color="#FFBB00";
+    return('나쁨');
+  }
+  else{
+    cono3.style.color="red";
+    return('매우나쁨');
+  }
+}
+
 
 var url = endpoint + "?lat="+lat+"&lon="+lon+"&units=metric" + "&appid=" + apiKey;
 fetch(url)
@@ -119,8 +177,22 @@ function printname(){
     des.innerHTML = wDescEngToKor(res.data.weather[0].id);
     feel.innerHTML=Math.round(res.data.main.feels_like);
     humi.innerHTML=res.data.main.humidity
-  })  
+  })
+  var link2_2= pollutionpoint+"?lat="+lat+"&lon="+lon+"&appid=0a49043ba8f80d748644f6a519298486"; 
     console.log(response);
-  
+    axios({                      // 대기오염 정보에 대한 api 가져오기 
+      method:'get',              // 현재 날씨 api와는 다르게 좌표로만 지역정보를 가져올수 있다.
+      url:link2_2,
+    }).then((response)=>{
+      console.log('pollution',response);
+      data=response.data.list[0].components;
+      let o3Data=o3cal(data.o3);
+      con10.innerHTML=airpm10(data.pm10);
+      con25.innerHTML=airpm25(data.pm2_5);
+      cono3.innerHTML=airo3(o3Data);
+      pm25.innerHTML=data.pm2_5;
+      pm10.innerHTML=data.pm10;
+      o3.innerHTML=o3Data;
+    });
 });
 }

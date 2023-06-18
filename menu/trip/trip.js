@@ -6,15 +6,20 @@ var container = document.getElementById('map');
         };
 
 var map = new kakao.maps.Map(container, options);
-
-var query_params = new URLSearchParams(location.search);
+var query_params1=new URLSearchParams(location.search);
+console.log('query', query_params1);
 
 
 //지역에 따른 여행정보 가져오기
 var link="https://apis.data.go.kr/B551011/KorService1/searchKeyword1";
-var serviceKey="nfGyrhix1PGJ1x6F%2BZ2%2Frqm0BLUzXIXxcN1sCy2dmW0SfkEgRbq3y1yqJYChKcvhuC6Yi9yDLlZuXzrbc8OkqA%3D%3D";
-var pageNo=query_params.get("page");
-if (!pageNo) pageNo = 1;
+var serviceKey="TZxNCZ%2F4gzQHrtkE4iv6EWVg18PaxLxU8542IUs9I6J9xxQf8U78oqcNlU2vUiYeZW1wvVS2ynPNLNnbXICyUw%3D%3D";
+var localName=query_params1.get("keyword");
+var pageNo=query_params1.get("page");
+console.log('query', pageNo);
+if (!pageNo) {
+    pageNo = 1;
+
+}
 var keyword="서울";
 var addrx=new Array();
 var addry=new Array();
@@ -119,6 +124,7 @@ function printname(){
 
 //다음 페이지로 넘어갔을때 api로 다음 페이지 받아오고 갱신
 function pagenext(index){
+    console.log('next index', index);
     var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+index+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+keyword+"&contentTypeId=12";
     
     axios({
@@ -159,6 +165,7 @@ function createList(data, totalCount){
     mainUL.className='ulstyle';
     let total;
 
+    //pagination 생성 elemet
     if(totalCount%10==0){
         total=totalCount/10;
     }
@@ -171,10 +178,11 @@ function createList(data, totalCount){
         pageUL.value=i;
         
         const pagea=document.createElement('a');
-        pagea.href='../menu/trip.html?page='+i;
+        console.log('key',keyword);
+        pagea.href='../menu/trip.html?page='+i+'&keyword='+keyword;
         pagea.id=i+10;
         pagea.onclick=function(){
-            console.log('keyword', keyword);
+            console.log('keyword', pageNo.vlaue);
             pagenext(pageUL.value);
         }
         pagea.innerHTML=i;
@@ -274,7 +282,7 @@ function updateList(data, totalCount){
         const parent=oldnode.parentNode;
         const newnode=document.createElement('a');
         newnode.id=i+10;
-        newnode.href='../menu/trip.html?page='+i;
+        newnode.href='../menu/trip.html?page='+i+"&keyword="+keyword;
         newnode.onclick=function(){
             pagenext(parent.value);
         }
