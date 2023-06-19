@@ -15,15 +15,6 @@
     <script src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
-  <!--
- <header>
-        <div class="mainframe">
-            <div class="logo">
-                <img src="munhwa_logo.png" width="170" height="50">
-            </div>
-        </div>
-    </header>
-  -->
    
   <div class="head">
     <h1>문화누리</h1>
@@ -41,10 +32,10 @@
                 <li><a  href="./menu/weight_serach/weight_origin.html?location=전라">전라도</a></li>
             </ul>
         </li>
-        <li><a href="./menu/trip.html">여행</a>
+        <li><a href="./menu/trip.html?page1">여행</a>
             <ul class="sub-menu">
-                <li><a href="./menu/trip.html">여행지 정보검색</a></li>
-                <li><a href="./menu/trip2.html">지역축제 정보검색</a></li>
+                <li><a href="./menu/trip.html?page=1&keyword=서울">여행지 정보검색</a></li>
+                <li><a href="./menu/trip2.html?page=1">지역축제 정보검색</a></li>
                 <li>가족</li>
                 <li>뚜벅이</li>
             </ul>
@@ -58,12 +49,12 @@
         <div class="container1">
             <div class="container2_2">
                 <div class="search">
-                  <input id="myText" />
-                  <button onclick="printname()">검색</button>
+                  <input id="myText" placeholder="지역명을 입력하세요 ex: 서울" class="inputstyle"/>
+                  <button onclick="printname()" class="button">검색</button>
                 </div>
                 <div class="weather-dashboard">
                     <div class="location">
-                      <h2>나의지역 : <span id="city-name"></span></h2>
+                      <h2>검색지역 : <span id="city-name"></span></h2>
                     </div>                 
                     <div class="weather">
                       <div class="temperature">
@@ -84,17 +75,26 @@
                         <img id="weather-icon" alt="Weather Icon">
                         <span id="des"></span>
                       </div>
-                    </div>
-                </div>
-                <div class="chartflex">
-                    <div class="chartsize">
-                      <div id="donut_single" style="width: 200px; height: 200px;"></div>
-                    </div>
-                    <div class="chartsize">
-                        
-                    </div>
-                    <div class="chartsize">
-                   
+                      <div class="airpolluton">
+                        <span class="frame">
+                          <div class="title">미세먼지(PM10)</div>                         
+                          <div class="condition" id="con10"></div>
+                          <div id="pm10" class="val"></div>
+                          <div style="font-size: 12px;">μg/m3</div>
+                        </span>
+                        <span class="frame">
+                          <div class="title">초미세먼지(PM2.5)</div>
+                          <div class="condition" id="con25"></div>
+                          <div id="pm25" class="val"></div>
+                          <div style="font-size: 12px;">μg/m3</div>
+                        </span>
+                        <span class="frame">
+                          <div class="title">오존 지수(O3)</div>
+                          <div class="condition" id="cono3"></div>
+                          <div id="o3" class="val"></div>
+                          <div style="font-size: 12px;">ppm</div>
+                        </span>
+                      </div>
                     </div>
                 </div>
                 

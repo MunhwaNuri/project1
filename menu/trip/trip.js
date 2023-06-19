@@ -1,3 +1,4 @@
+// 지도 api 초기변수 설정
 var container = document.getElementById('map');
         var options = {
             center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -5,20 +6,28 @@ var container = document.getElementById('map');
         };
 
 var map = new kakao.maps.Map(container, options);
-
-var query_params = new URLSearchParams(location.search);
+var query_params1=new URLSearchParams(location.search);
+console.log('query', query_params1);
 
 
 //지역에 따른 여행정보 가져오기
 var link="https://apis.data.go.kr/B551011/KorService1/searchKeyword1";
-var serviceKey="nfGyrhix1PGJ1x6F%2BZ2%2Frqm0BLUzXIXxcN1sCy2dmW0SfkEgRbq3y1yqJYChKcvhuC6Yi9yDLlZuXzrbc8OkqA%3D%3D";
-var pageNo=query_params.get("page");
-if (!pageNo) pageNo = 1;
-var keyword="서울";
+var serviceKey="TZxNCZ%2F4gzQHrtkE4iv6EWVg18PaxLxU8542IUs9I6J9xxQf8U78oqcNlU2vUiYeZW1wvVS2ynPNLNnbXICyUw%3D%3D";
+var localName=query_params1.get("keyword");
+var pageNo=query_params1.get("page");
+console.log('query', pageNo);
+if (!pageNo) {
+    pageNo = 1;
+
+}
+if(!localName){
+    localName='서울';
+}
 var addrx=new Array();
 var addry=new Array();
+var globaltotal=0;
 
-var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+keyword+"&contentTypeId=12";
+var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+localName+"&contentTypeId=12";
 console.log(url);
 axios({
     method:'get',
@@ -28,8 +37,10 @@ axios({
     console.log(response);
     console.log(response.data.response.body.items.item);
     let data=response.data.response.body.items.item;
+    let totalCount=response.data.response.body.totalCount;
+    console.log('total', totalCount);
 
-    createList(data);
+    createList(data, totalCount);
     // x와 y 좌표 json을 소수점 자리수를 맞추고 형변환을 해주는 로직 (문서 기준 소수점 6자리라 반올림을 진행하였음, json은 7자리)
     for(let i=0; i<10; i++){
         addrx.push(parseFloat(data[i].mapx));  
@@ -73,8 +84,52 @@ axios({
 //input으로 지역명을 받을시 여행지 리스트 api를 갱신하는 함수, 지도도 갱신
 function printname(){
     var x=document.getElementById("myText").value;
-    cityname=x;
-    var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+cityname+"&contentTypeId=12";
+    localName=x;
+    var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+pageNo+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+localName+"&contentTypeId=12";
+    axios({
+        method:'get',
+        url:url,
+    }).then((response)=>{
+        console.log(link);
+        console.log(response);
+        let data=response.data.response.body.items.item;
+        let totalCount=response.data.response.body.totalCount;
+        let total;
+        if(totalCount%10==0){
+            total=totalCount/10;
+        }
+        else{
+            total=Math.ceil(totalCount/10);
+        }
+        addrx.splice(0,addrx.length);  //이미 생성된 좌표리스트를 초기화해준다.
+        addry.splice(0,addry.length);
+        updateList(data,total);
+        console.log('printtotal',total);
+        // x와 y 좌표 json을 소수점 자리수를 맞추고 형변환을 해주는 로직
+        for(let i=0; i<10; i++){
+            addrx.push(parseFloat(data[i].mapx));  
+            addry.push(parseFloat(data[i].mapy));
+            addrx[i]=addrx[i].toFixed(6);
+            addrx[i]=parseFloat(addrx[i]);
+            addry[i]=addry[i].toFixed(6);
+            addry[i]=parseFloat(addry[i]);
+        }
+        console.log('addrx', addrx);
+        var moveLation=new kakao.maps.LatLng(addry[0],addrx[0]);  //카카오맵 위치 갱신
+        map.setCenter(moveLation);
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+        marker.setMap(map);
+    });
+}
+
+/*query parameter의 사용으로 사라져도 되는 코드(검토 필요)*/
+//다음 페이지로 넘어갔을때 api로 다음 페이지 받아오고 갱신
+function pagenext(index){
+    console.log('next index', index);
+    var url=link+"?serviceKey="+serviceKey+"&numOfRows=10&pageNo="+index+"&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A&keyword="+keyword+"&contentTypeId=12";
+    
     axios({
         method:'get',
         url:url,
@@ -95,7 +150,7 @@ function printname(){
             addry[i]=addry[i].toFixed(6);
             addry[i]=parseFloat(addry[i]);
         }
-        console.log('addrx', addrx);
+        console.log('success', addrx);
         var moveLation=new kakao.maps.LatLng(addry[0],addrx[0]);  //카카오맵 위치 갱신
         map.setCenter(moveLation);
         var marker = new kakao.maps.Marker({
@@ -103,13 +158,40 @@ function printname(){
         });
         marker.setMap(map);
     });
-  }
+}
 
 //api의 json data를 html에 적용하기 위한 분류 작업(사이트 로드 초기)
-function createList(data){
+function createList(data, totalCount){
+    const pageUL=document.createElement('div');
+    pageUL.className='pagination';
     const mainUL=document.createElement('ul');
     mainUL.className='ulstyle';
+    let total;
+
+    //pagination 생성 elemet
+    if(totalCount%10==0){
+        total=totalCount/10;
+    }
+    else{
+        total=Math.ceil(totalCount/10);
+    }
+    globaltotal=total;
+    console.log('first', globaltotal);
+    for(let i=1; i<=total; i++){
+        pageUL.value=i;
+        
+        const pagea=document.createElement('a');
+        pagea.href='../menu/trip.html?page='+i+'&keyword='+localName;
+        pagea.id=i+10;
+        pagea.onclick=function(){
+            console.log('keyword', pageNo.vlaue);
+            pagenext(pageUL.value);
+        }
+        pagea.innerHTML=i;
+        pageUL.appendChild(pagea);
+    }
      
+    //여행지 명 리스트 Element 생성
     for(let i=0; i<data.length; i++){
         const maindiv=document.createElement('div');
         maindiv.id=i;
@@ -120,11 +202,15 @@ function createList(data){
         centertitle.className='spanstyle1';
         centertitle.innerHTML=data[i].title;
         mainli.appendChild(centertitle);
-        
+        const atag=document.createElement('a');
+        atag.href="https://map.kakao.com/link/search/"+data[i].addr1+data[i].addr2;
+        atag.target='_blank';
+        atag.className='atag';
         const centeraddr=document.createElement('span');
         centeraddr.className='spanstyle2';
-        centeraddr.innerHTML=data[i].addr1;
-        mainli.appendChild(centeraddr);
+        centeraddr.innerHTML="자세히보기";
+        atag.appendChild(centeraddr);
+        mainli.appendChild(atag);
         const photoZone=document.createElement('div');
         photoZone.id="mydiv"+i;
         photoZone.style.display="none";
@@ -149,6 +235,8 @@ function createList(data){
         };
     }
     document.getElementById("desc").appendChild(mainUL);
+    document.getElementById("paginator").appendChild(pageUL);
+
 }
 
 //여행지 클릭시 이미지로 자세히 보기
@@ -187,8 +275,40 @@ function displayView(data, value){
    });
 }
 
+/*query parameter의 사용으로 사라져도 되는 코드(검토 필요)*/
 //갱신된 api를 바탕으로 createElement에 적용되어있던 태그와 내용을 갱신(replaceChild)하는 함수
-function updateList(data){
+function updateList(data, totalCount){
+    let total=totalCount;
+    console.log('totalcount',totalCount);
+    for(let i=1; i<=total; i++){
+        const oldnode=document.getElementById(i+10);
+        const parent=oldnode.parentNode;
+        const newnode=document.createElement('a');
+        newnode.id=i+10;
+        newnode.href='../menu/trip.html?page='+i+"&keyword="+localName;
+        newnode.onclick=function(){
+            pagenext(parent.value);
+        }
+        newnode.innerHTML=i;
+        console.log('newnode', newnode);
+        parent.replaceChild(newnode,oldnode);
+    }
+    console.log('global2',globaltotal);
+    if(globaltotal>total){
+        for(let i=total+1; i<=globaltotal; i++){
+            const oldnode=document.getElementById(i+10);
+            console.log('oldnode',oldnode.parentNode);
+            const parent=oldnode.parentNode;
+            const newnode=document.createElement('a');
+            newnode.id=i+10;
+            parent.replaceChild(newnode,oldnode);
+        }
+        globaltotal=total;
+    }
+    else{
+        globaltotal=total;
+    }
+
     for(let i=0; i<data.length; i++){
         const oldnode=document.getElementById(i);
         const parent=oldnode.parentNode;
@@ -204,11 +324,15 @@ function updateList(data){
         centertitle.className='spanstyle1';
         centertitle.innerHTML=data[i].title;
         mainli.appendChild(centertitle);
-        
+        const atag=document.createElement('a');
+        atag.href="https://map.kakao.com/link/search/"+data[i].addr1+data[i].addr2;
+        atag.target='_blank';
+        atag.className='atag';
         const centeraddr=document.createElement('span');
         centeraddr.className='spanstyle2';
-        centeraddr.innerHTML=data[i].addr1;
-        mainli.appendChild(centeraddr);
+        centeraddr.innerHTML="자세히보기";
+        atag.appendChild(centeraddr);
+        mainli.appendChild(atag);
         const photoZone=document.createElement('div');
         photoZone.id="mydiv"+i;
         photoZone.style.display="none";
@@ -238,9 +362,9 @@ function updateList(data){
             const newnode=document.createElement('div');
             newnode.id=i;
             parent.replaceChild(newnode,oldnode);
-            // parent.removeChild(oldnode)
         }
     }
 }
+
 
 

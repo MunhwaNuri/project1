@@ -9,6 +9,27 @@ body{
     background-color:#F2E8DF;
 }
 
+.inputstyle{
+    width: 300px;
+    height:40px;
+    border-top: none;
+    border-left: none;
+    border-right:none;
+    border-bottom: 3px solid #F28585;
+}
+
+.button{
+    background-color:#F28585;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:10px;
+    min-width: 80px;
+}
+.button:hover {
+    background-color:#945353;
+    transition: 0.3s;
+}
 /*2차 디자인 header style*/
 
 .head{
@@ -117,7 +138,6 @@ a{
 */
 .container2_2{
 
-    margin-top:20px;
     width: 1200px;
     height: 700px;
     border-radius: 10px;

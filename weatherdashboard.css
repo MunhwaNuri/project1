@@ -1,6 +1,6 @@
 .weather-dashboard {
-    width: 400px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     overflow: hidden;
@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 255px;
+    height: 460px;
     background-color: rgb(192, 248, 229);
     
   }
@@ -32,6 +32,37 @@
     font-size: 80px;
     font-weight: bold;
     margin-bottom: 20px;
+  }
+
+  .airpolluton{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    width:400px;
+    height: 130px;
+  }
+  .airpolluton .frame{
+    
+    width: 100px;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+  }
+  .airpolluton .frame .title{
+    font-weight: bold;
+    padding-top: 5px;
+    background-color: antiquewhite;
+    height: 42px;
+  }
+  .airpolluton .frame .condition{
+    font-weight: bold;
+    font-size: 20px;
+    padding-top:10px ;
+  }
+  .airpolluton .frame .val{
+    font-weight: bold;
+    padding-top: 10px;
   }
   
   .conditions {
