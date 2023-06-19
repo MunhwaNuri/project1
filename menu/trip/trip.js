@@ -124,6 +124,7 @@ function printname(){
     });
 }
 
+/*query parameter의 사용으로 사라져도 되는 코드(검토 필요)*/
 //다음 페이지로 넘어갔을때 api로 다음 페이지 받아오고 갱신
 function pagenext(index){
     console.log('next index', index);
@@ -274,6 +275,7 @@ function displayView(data, value){
    });
 }
 
+/*query parameter의 사용으로 사라져도 되는 코드(검토 필요)*/
 //갱신된 api를 바탕으로 createElement에 적용되어있던 태그와 내용을 갱신(replaceChild)하는 함수
 function updateList(data, totalCount){
     let total=totalCount;
@@ -363,5 +365,6 @@ function updateList(data, totalCount){
         }
     }
 }
+
 
 

@@ -41,13 +41,11 @@ axios({                      // 대기오염 정보에 대한 api 가져오기
   o3.innerHTML=o3Data;
 });
 
+// 기준치에 따른 분류 매서드 모음
 function o3cal(o3){
-  console.log(o3);
   let n;
   n=(o3*0.0224)/46;
-  console.log("n", n);
   n=n.toFixed(4);
-
   return n;
 }
 function airpm25(pm){
@@ -106,7 +104,7 @@ function airo3(o3){
   }
 }
 
-
+// 초기 날씨 정보를 가져오는 api작업 (서울)
 var url = endpoint + "?lat="+lat+"&lon="+lon+"&units=metric" + "&appid=" + apiKey;
 fetch(url)
   .then(response => response.json())
@@ -120,8 +118,9 @@ fetch(url)
     feel.innerHTML=Math.round(data.main.feels_like);
     humi.innerHTML=data.main.humidity;
   })
-  .catch(error => console.log(error));
+  .catch(error => alert('날씨정보를 받아올 수 없습니다. 잠시후 다시 시도해주세요.'));
 
+// 날씨 상태 한국어 변환을 하는 매서드
 function wDescEngToKor(w_id) {
   var w_id_arr = [201,200,202,210,211,212,221,230,231,232,
   300,301,302,310,311,312,313,314,321,500,
@@ -151,11 +150,11 @@ function wDescEngToKor(w_id) {
 }
 
 
-
+// 검색시 변화를 위한 매서드
 function printname(){
   var x=document.getElementById("myText").value;
   cityname=x;
-  axios({
+  axios({  //지역을 한국어로 받으면 한국지역 정식 명칭과 지역 좌표를 반환(google geocode api)
     method:'get',
     url:'https://maps.googleapis.com/maps/api/geocode/json?address='+cityname+'&key=AIzaSyAiUkL3c3OHpTAxy5UpFIiDt2nQhB1AGiw',
 }).then((response)=>{
@@ -166,7 +165,7 @@ function printname(){
   lon=data.geometry.location.lng;
   console.log('lat', typeof(lat));
   var url1 = endpoint + "?lat="+lat+"&lon="+lon+"&units=metric" + "&appid=" + apiKey;
-  axios({
+  axios({ //실시간 날씨정보에 대한 api 가져오기
     method:'get',
     url:url1
   }).then((res)=>{
