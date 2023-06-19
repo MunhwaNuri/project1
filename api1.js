@@ -176,7 +176,7 @@ function printname(){
     des.innerHTML = wDescEngToKor(res.data.weather[0].id);
     feel.innerHTML=Math.round(res.data.main.feels_like);
     humi.innerHTML=res.data.main.humidity
-  })
+  }).catch(error => alert('날씨정보를 받아올 수 없습니다. 잠시후 다시 시도해주세요.'));
   var link2_2= pollutionpoint+"?lat="+lat+"&lon="+lon+"&appid=0a49043ba8f80d748644f6a519298486"; 
     console.log(response);
     axios({                      // 대기오염 정보에 대한 api 가져오기 
@@ -192,6 +192,6 @@ function printname(){
       pm25.innerHTML=data.pm2_5;
       pm10.innerHTML=data.pm10;
       o3.innerHTML=o3Data;
-    });
+    }).catch(error => alert('대기상태를 받아올 수 없습니다. 잠시후 다시 시도해주세요.'));
 });
 }

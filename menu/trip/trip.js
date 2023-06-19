@@ -78,6 +78,9 @@ axios({
     kakao.maps.event.addListener(marker, 'mouseout', function() {
         infowindow.close();
     });
+}).catch((error)=>{
+    alert('정보를 받아올 없습니다. 잠시후 다시 시도해주세요.');
+    location.href="../../index.html";
 });
 
 
@@ -119,7 +122,10 @@ function printname(){
         map.setCenter(moveLation);
         var marker = new kakao.maps.Marker({
             position: markerPosition
-        });
+        }).catch((error)=>{
+            alert('정보를 받아올 없습니다. 잠시후 다시 시도해주세요.');
+            location.href="../../index.html";
+        })
         marker.setMap(map);
     });
 }
@@ -157,6 +163,9 @@ function pagenext(index){
             position: markerPosition
         });
         marker.setMap(map);
+    }).catch((error)=>{
+        alert('좌표 생성에 실패하였습니다. 잠시후 다시 시도해주세요.');
+        location.href="../../index.html";
     });
 }
 
